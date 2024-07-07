@@ -1,3 +1,4 @@
+"use client";
 import {
   Pagination as PaginationComponent,
   PaginationContent,
@@ -6,38 +7,64 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination';
+} from "@/components/ui/pagination";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Pagination() {
+  const serchParams = useSearchParams();
+
+  const page = serchParams.get("page") ?? 1;
+  const router = useRouter();
+
   return (
     <PaginationComponent>
       <PaginationContent>
-        <PaginationItem>
+        <PaginationItem
+          onClick={() =>
+            router.push(`/?page=${page !== "0" ? Number(page) - 1 : 1}`)
+          }
+        >
           <PaginationPrevious />
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink isActive={true}>1</PaginationLink>
+          <PaginationLink isActive={page === "1"} href="/?page=1">
+            1
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink>2</PaginationLink>
+          <PaginationLink href="/?page=2" isActive={page === "2"}>
+            {" "}
+            2
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink>3</PaginationLink>
+          <PaginationLink href="/?page=3" isActive={page === "3"}>
+            3
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink>8</PaginationLink>
+          <PaginationLink href="/?page=8" isActive={page === "8"}>
+            8
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink>9</PaginationLink>
+          <PaginationLink href="/?page=9" isActive={page === "9"}>
+            9
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink>10</PaginationLink>
+          <PaginationLink href="/?page=10" isActive={page === "10"}>
+            10
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext />
+          <PaginationNext
+            onClick={() => router.push(`/?page=${Number(page) + 1}`)}
+          />
         </PaginationItem>
       </PaginationContent>
     </PaginationComponent>
