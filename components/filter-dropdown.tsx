@@ -14,9 +14,11 @@ import { Filter } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 export default function FilterDropdown() {
-  const searchParams = useSearchParams();
-  const page = searchParams.get("page");
   const router = useRouter();
+
+  const serchParams = useSearchParams();
+  const search = serchParams.get("search");
+  const searchCondition = search !== null ? `search=${search}` : "";
 
   return (
     <DropdownMenu>
@@ -35,16 +37,16 @@ export default function FilterDropdown() {
         <DropdownMenuLabel>Filtrar por:</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value="">
-          <DropdownMenuRadioItem value="" onClick={() => router.push(`/?page=${page}`)}>Todos</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="" onClick={() => router.push(`/?page=${1}&${searchCondition}`)}>Todos</DropdownMenuRadioItem>
           <DropdownMenuRadioItem
             value="pending"
-            onClick={() => router.push(`/?page=${page}&status=pending`)}
+            onClick={() => router.push(`/?page=${1}&status=pending&${searchCondition}`)}
           >
             Pendente
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
             value="completed"
-            onClick={() => router.push(`/?page=${page}&status=completed`)}
+            onClick={() => router.push(`/?page=${1}&status=completed&${searchCondition}`)}
           >
             Completo
           </DropdownMenuRadioItem>

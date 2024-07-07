@@ -15,6 +15,10 @@ export default function Pagination() {
   const serchParams = useSearchParams();
 
   const page = serchParams.get("page") ?? 1;
+  const status = serchParams.get("status");
+  const statusCondition = status !== null ? `status=${status}` : "";
+  const search = serchParams.get("search");
+  const searchCondition = search !== null ? `search=${search}` : "";
   const router = useRouter();
 
   return (
@@ -22,24 +26,28 @@ export default function Pagination() {
       <PaginationContent>
         <PaginationItem
           onClick={() =>
-            router.push(`/?page=${page !== "0" ? Number(page) - 1 : 1}`)
+            router.push(
+              `/?page=${
+                page !== "0" ? Number(page) - 1 : 1
+              }&${statusCondition}&${searchCondition}`
+            )
           }
         >
           <PaginationPrevious />
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink isActive={page === "1"} href="/?page=1">
+          <PaginationLink isActive={page === "1"} href={`/?page=1&${statusCondition}&${searchCondition}`}>
             1
           </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink href="/?page=2" isActive={page === "2"}>
+          <PaginationLink href={`/?page=2&${statusCondition}&${searchCondition}`} isActive={page === "2"}>
             {" "}
             2
           </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink href="/?page=3" isActive={page === "3"}>
+          <PaginationLink href={`/?page=3&${statusCondition}&${searchCondition}`} isActive={page === "3"}>
             3
           </PaginationLink>
         </PaginationItem>
@@ -47,23 +55,23 @@ export default function Pagination() {
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink href="/?page=8" isActive={page === "8"}>
+          <PaginationLink href={`/?page=8&${statusCondition}&${searchCondition}`} isActive={page === "8"}>
             8
           </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink href="/?page=9" isActive={page === "9"}>
+          <PaginationLink href={`/?page=9&${statusCondition}&${searchCondition}`} isActive={page === "9"}>
             9
           </PaginationLink>
         </PaginationItem>
         <PaginationItem className="hidden md:inline-flex">
-          <PaginationLink href="/?page=10" isActive={page === "10"}>
+          <PaginationLink href={`/?page=10&${statusCondition}&${searchCondition}`}isActive={page === "10"}>
             10
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            onClick={() => router.push(`/?page=${Number(page) + 1}`)}
+            onClick={() => router.push(`/?page=${Number(page) + 1}&${statusCondition}&${searchCondition}`)}
           />
         </PaginationItem>
       </PaginationContent>

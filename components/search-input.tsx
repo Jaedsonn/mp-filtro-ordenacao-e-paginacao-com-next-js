@@ -7,14 +7,15 @@ export default function SearchInput() {
   const router = useRouter();
   const serchParams = useSearchParams();
   const page = serchParams.get("page") ?? 1;
+  const pageCondition = page !== null || NaN ? `page=${1}` : "";
   const status = serchParams.get("status");
-  const statusCondition = status !== null ? `$status=${status}` : "";
+  const statusCondition = status !== null ? `&status=${status}` : "";
 
   const handlePath = (e: any) => {
     if (e.trim() === "") {
-      router.push(`/?page=${page}&${statusCondition}`);
+      router.push(`/?${pageCondition}&${statusCondition}`);
     } else {
-      router.push(`/?page=${page}${statusCondition}&search=${e}`);
+      router.push(`/?${pageCondition}${statusCondition}&search=${e}`);
     }
   };
 

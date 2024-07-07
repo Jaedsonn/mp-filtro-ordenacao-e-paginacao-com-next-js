@@ -43,7 +43,7 @@ export default function OrdersTable() {
     };
 
     fetchData();
-  }, [page, status, statusCondition, search, searchCondition]);
+  }, [page, status, statusCondition, search, searchCondition, pageCondition] );
 
   return (
     <Table>
